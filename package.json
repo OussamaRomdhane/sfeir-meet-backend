@@ -4,9 +4,10 @@
   "version": "0.1.0",
   "description": "SFEIR meet backend",
   "main": "src/app.js",
-  "start:prod": "node src/app.js",
-  "start:dev": "nodemon src/app.js",
   "scripts": {
+    "build": "./node_modules/.bin/tsc",
+    "start:prod": "node ./dist/app.js",
+    "start:dev": "nodemon ./dist/app.js",
     "test": "mocha \"tests/**/*.js\""
   },
   "repository": {
@@ -35,7 +36,8 @@
     "nodemon": "^1.18.9",
     "prettier": "^1.15.3",
     "tslint": "^5.12.1",
-    "tslint-config-prettier": "^1.17.0"
+    "tslint-config-prettier": "^1.17.0",
+    "typescript": "^3.2.2"
   },
   "dependencies": {
     "body-parser": "^1.18.3",
