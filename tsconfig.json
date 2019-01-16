@@ -5,7 +5,6 @@
     "outDir": "dist",
     "sourceMap": false
   },
-  "files": [],
   "include": ["src/**/*.ts"],
   "exclude": ["node_modules/"]
 }
