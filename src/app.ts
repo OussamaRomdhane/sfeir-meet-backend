@@ -13,6 +13,6 @@ app.use(cors());
 
 app.use('/recommendations', recommendationRouter);
 
-app.listen(process.env.port, () => {
-  console.info('Server started on port', process.env.port);
+app.listen(process.env.PORT, () => {
+  console.info('Server started on port', process.env.PORT);
 });
