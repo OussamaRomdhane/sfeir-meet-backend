@@ -36,10 +36,9 @@
     "mocha": "^5.2.0",
     "nodemon": "^1.18.9",
     "prettier": "^1.15.3",
-    "tsc": "^1.20150623.0",
     "tslint": "^5.12.1",
     "tslint-config-prettier": "^1.17.0",
-    "typescript": "^3.2.2"
+    "typescript": "3.2.2"
   },
   "dependencies": {
     "axios": "^0.18.0",
