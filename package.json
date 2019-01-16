@@ -5,7 +5,7 @@
   "description": "SFEIR meet backend",
   "main": "src/app.js",
   "scripts": {
-    "build": "./node_modules/.bin/tsc",
+    "build": "tsc",
     "start": "npm run build && node ./dist/src/app.js",
     "start:dev": "npm run build && nodemon ./dist/src/app.js",
     "test": "mocha \"tests/**/*.js\""
