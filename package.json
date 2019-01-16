@@ -5,9 +5,10 @@
   "description": "SFEIR meet backend",
   "main": "src/app.js",
   "scripts": {
-    "build": "tsc",
-    "start": "npm run build && node ./dist/src/app.js",
-    "start:dev": "npm run build && nodemon ./dist/src/app.js",
+    "build-ts": "tsc",
+    "postinstall": "npm run build-ts",
+    "start": "npm run build-tsc && node ./dist/src/app.js",
+    "start:dev": "npm run build-tsc && nodemon ./dist/src/app.js",
     "test": "mocha \"tests/**/*.js\""
   },
   "repository": {
