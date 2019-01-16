@@ -7,13 +7,7 @@ import Address from '../address/address.model';
 import { degToRad, radToDeg } from 'geolocation-utils';
 
 export default class Geo {
-  lat: number;
-  lon: number;
-  constructor(lat: number, lon: number) {
-    this.lat = lat;
-    this.lon = lon;
-  }
-  static getCenter(geos: Geo[]): Geo {
+  public static getCenter(geos: Geo[]): Geo {
     if (!geos.length) {
       throw new Error('Must precise at least one Geo point');
     }
@@ -22,36 +16,27 @@ export default class Geo {
     let sumY = 0;
     let sumZ = 0;
 
-    for (let i = 0; i < geos.length; i++) {
-      let lat = degToRad(geos[i].lat);
-      let lng = degToRad(geos[i].lon);
+    for (const geo of geos) {
+      const latitudeInRad: number = degToRad(geo.lat);
+      const longtitudeInRad: number = degToRad(geo.lon);
       // sum of cartesian coordinates
-      sumX += Math.cos(lat) * Math.cos(lng);
-      sumY += Math.cos(lat) * Math.sin(lng);
-      sumZ += Math.sin(lat);
+      sumX += Math.cos(latitudeInRad) * Math.cos(longtitudeInRad);
+      sumY += Math.cos(latitudeInRad) * Math.sin(longtitudeInRad);
+      sumZ += Math.sin(latitudeInRad);
     }
 
-    let avgX = sumX / geos.length;
-    let avgY = sumY / geos.length;
-    let avgZ = sumZ / geos.length;
+    const avgX = sumX / geos.length;
+    const avgY = sumY / geos.length;
+    const avgZ = sumZ / geos.length;
 
     // convert average x, y, z coordinate to latitude and longtitude
-    let lng = Math.atan2(avgY, avgX);
-    let hyp = Math.sqrt(avgX * avgX + avgY * avgY);
-    let lat = Math.atan2(avgZ, hyp);
-    return new Geo(radToDeg(lat), radToDeg(lng));
+    const longtitude = Math.atan2(avgY, avgX);
+    const hyp = Math.sqrt(avgX * avgX + avgY * avgY);
+    const latitude = Math.atan2(avgZ, hyp);
+    return new Geo(radToDeg(latitude), radToDeg(longtitude));
   }
-  toJSON() {
-    return {
-      lat: this.lat,
-      lon: this.lon,
-    };
-  }
-  toArray() {
-    return [this.lat, this.lon];
-  }
-  static async arrayFromAddresses(addresses: Address[]): Promise<Geo[]> {
-    let responses = await Promise.all(
+  public static async arrayFromAddresses(addresses: Address[]): Promise<Geo[]> {
+    const responses = await Promise.all(
       addresses.map(address =>
         axios.get(
           `https://maps.googleapis.com/maps/api/geocode/json?address=${address.value}&key=${config['google-api-key']}`
@@ -60,9 +45,24 @@ export default class Geo {
     );
 
     return responses.map(response => {
-      let lat = response.data.results[0] && response.data.results[0].geometry.location.lat;
-      let lon = response.data.results[0] && response.data.results[0].geometry.location.lng;
+      const lat = response.data.results[0] && response.data.results[0].geometry.location.lat;
+      const lon = response.data.results[0] && response.data.results[0].geometry.location.lng;
       return new Geo(lat, lon);
     });
+  }
+  public lat: number;
+  public lon: number;
+  constructor(lat: number, lon: number) {
+    this.lat = lat;
+    this.lon = lon;
+  }
+  public toJSON() {
+    return {
+      lat: this.lat,
+      lon: this.lon,
+    };
+  }
+  public toArray() {
+    return [this.lat, this.lon];
   }
 }

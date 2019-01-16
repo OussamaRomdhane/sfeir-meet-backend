@@ -7,36 +7,9 @@ import Rating from '../rating/rating.model';
 import Recommendation from '../recommendation/recommendation.model';
 
 export default class Place {
-  id: string;
-  placeId: string;
-  rating: Rating;
-  icon: string;
-  photo: string;
-  name: string;
-  location: Geo;
-  constructor(id: string, placeId: string, rating: Rating, icon: string, photo: string, name: string, location: Geo) {
-    this.id = id;
-    this.placeId = placeId;
-    this.rating = rating;
-    this.icon = icon;
-    this.photo = photo;
-    this.name = name;
-    this.location = location;
-  }
-  toJSON() {
-    return {
-      id: this.id,
-      placeId: this.placeId,
-      rating: this.rating,
-      icon: this.icon,
-      photo: this.photo,
-      name: this.name,
-      location: this.location,
-    };
-  }
-  static async getNearby(geo: Geo, outdoor = true): Promise<Recommendation[]> {
-    let types = ['restaurant', 'cafe', 'bar'].concat(outdoor ? ['park', 'amusement_park'] : []);
-    let responses = await Promise.all(
+  public static async getNearby(geo: Geo, outdoor = true): Promise<Recommendation[]> {
+    const types = ['restaurant', 'cafe', 'bar'].concat(outdoor ? ['park', 'amusement_park'] : []);
+    const responses = await Promise.all(
       types.map(type =>
         axios.get(
           `https://maps.googleapis.com/maps/api/place/nearbysearch/json?location=${geo.lat},${
@@ -61,5 +34,32 @@ export default class Place {
       );
       return acc.concat(new Recommendation(types[index], places));
     }, []);
+  }
+  public id: string;
+  public placeId: string;
+  public rating: Rating;
+  public icon: string;
+  public photo: string;
+  public name: string;
+  public location: Geo;
+  constructor(id: string, placeId: string, rating: Rating, icon: string, photo: string, name: string, location: Geo) {
+    this.id = id;
+    this.placeId = placeId;
+    this.rating = rating;
+    this.icon = icon;
+    this.photo = photo;
+    this.name = name;
+    this.location = location;
+  }
+  public toJSON() {
+    return {
+      icon: this.icon,
+      id: this.id,
+      location: this.location,
+      name: this.name,
+      photo: this.photo,
+      placeId: this.placeId,
+      rating: this.rating,
+    };
   }
 }

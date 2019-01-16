@@ -1,16 +1,16 @@
 import Place from '../place/place.model';
 
 export default class Recommendation {
-  type: string;
-  places: Place[];
+  public type: string;
+  public places: Place[];
   constructor(type: string, places: Place[]) {
     this.type = type;
     this.places = places;
   }
-  toJSON() {
+  public toJSON() {
     return {
-      type: this.type,
       places: this.places,
+      type: this.type,
     };
   }
 }

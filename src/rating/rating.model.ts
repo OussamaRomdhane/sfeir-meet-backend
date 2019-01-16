@@ -1,16 +1,16 @@
 export default class Rating {
   // The rating
-  value: number;
+  public value: number;
   // Number of people who gave a rating
-  count: number;
+  public count: number;
   constructor(value: number, count: number) {
     this.value = value;
     this.count = count;
   }
-  toJSON() {
+  public toJSON() {
     return {
-      value: this.value,
       count: this.count,
+      value: this.value,
     };
   }
 }
