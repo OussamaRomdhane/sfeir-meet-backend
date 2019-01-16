@@ -6,7 +6,7 @@
   "main": "src/app.js",
   "scripts": {
     "build": "./node_modules/.bin/tsc",
-    "start:prod": "npm run build && node ./dist/src/app.js",
+    "start": "npm run build && node ./dist/src/app.js",
     "start:dev": "npm run build && nodemon ./dist/src/app.js",
     "test": "mocha \"tests/**/*.js\""
   },
