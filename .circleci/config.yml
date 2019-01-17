@@ -1,0 +1,34 @@
+version: 2
+jobs:
+  build:
+    working_directory: ~/mern-starter
+    docker:
+      - image: circleci/node:10.13.0
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: 'sudo npm install'
+      - run:
+          name: Build App
+          command: 'sudo npm run build'
+  test:
+    docker:
+      - image: circleci/node:10.13.0
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: 'sudo npm install'
+      - run:
+          name: Build App
+          command: 'sudo npm run build'
+      - run:
+          name: Test
+          command: npm test
+
+workflows:
+  version: 2
+  build_and_test:
+    jobs:
+      - build
