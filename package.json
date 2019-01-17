@@ -5,6 +5,7 @@
   "description": "SFEIR meet backend",
   "main": "src/app.js",
   "scripts": {
+    "build": "./node_modules/typescript/bin/tsc",
     "build-ts": "./node_modules/typescript/bin/tsc",
     "postinstall": "npm run build-ts",
     "start": "node ./dist/src/app.js",
